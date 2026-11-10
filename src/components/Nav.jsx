@@ -1,46 +1,27 @@
-import { useEffect, useState } from 'react'
+import { LogoMark } from './Illustrations'
 
-const links = ['Accounts', 'Cards', 'Treasury', 'Pricing']
+const links = ['Plans', 'Reviews', 'Learn']
+const item =
+  'rounded-lg border border-white/[0.06] bg-white/[0.03] px-3.5 py-2 text-[13px] text-cream/60 transition-colors hover:bg-white/[0.08] hover:text-cream'
 
-export default function Nav() {
-  // 背景转为深松绿后，Logo 切换成浅色
-  const [dark, setDark] = useState(false)
-  useEffect(() => {
-    const onScroll = () => setDark(window.scrollY > window.innerHeight * 0.5)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
+export default function Nav({ style }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <nav className="flex items-center justify-between px-6 py-5 md:px-[6vw]">
-        <a
-          href="/"
-          className={`font-display text-2xl font-semibold tracking-tight transition-colors duration-500 ${
-            dark ? 'text-mist' : 'text-pine-deep'
-          }`}
-        >
-          Halden
+    <header className="absolute inset-x-0 top-0 z-40 flex justify-center pt-6 md:pt-8" style={style}>
+      <nav className="flex items-center gap-1.5" aria-label="Main">
+        <a href="/" aria-label="Home" className="mr-2 block rounded-lg shadow-[0_0_24px_rgba(242,87,59,0.45)]">
+          <LogoMark className="h-9 w-9" />
         </a>
-        <ul className="hidden items-center gap-1 rounded-full bg-mist/70 px-2 py-1.5 backdrop-blur-md md:flex">
-          {links.map((l) => (
-            <li key={l}>
-              <a
-                href={`#${l.toLowerCase()}`}
-                className="rounded-full px-4 py-1.5 text-sm text-ink/80 transition-colors hover:bg-white/70 hover:text-ink"
-              >
-                {l}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <a
-          href="#open"
-          className="rounded-full bg-mist/80 px-5 py-2.5 text-sm font-semibold text-pine-deep backdrop-blur-md transition-colors hover:bg-white"
-        >
-          Log in
-        </a>
+        <button type="button" className={`${item} flex items-center gap-2`}>
+          Functionality
+          <svg viewBox="0 0 12 12" className="h-3 w-3" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+        {links.map((l) => (
+          <a key={l} href={`#${l.toLowerCase()}`} className={`${item} hidden sm:block`}>
+            {l}
+          </a>
+        ))}
       </nav>
     </header>
   )
