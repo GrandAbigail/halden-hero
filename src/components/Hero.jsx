@@ -4,13 +4,14 @@ import { Atm, Bill, MascotGun } from './Illustrations'
 
 /**
  * 第一屏。mascotRef 指向胶囊里的小黑人，滚动时外层以它为圆心收缩画面。
- * 悬停（或点按）ATM：持续喷金币；悬停胶囊：钞票枪打出钞票。
+ * 悬停（或点按）ATM：持续喷金币；悬停胶囊：钞票枪打出钞票；点按 Get Started：切换开关。
  */
 const Hero = forwardRef(function Hero({ mascotRef }, ref) {
   const coins = useRef(null)
   const wrap = useRef(null)
   const atm = useRef(null)
   const [spewing, setSpewing] = useState(false)
+  const [started, setStarted] = useState(false)
 
   useEffect(() => {
     if (!spewing) return
@@ -74,18 +75,32 @@ const Hero = forwardRef(function Hero({ mascotRef }, ref) {
           Teach them to behave like adults, in complete safety!
         </p>
 
-        {/* Get Started：悬停时开关拨到右边 */}
-        <a
-          href="#get-started"
-          className="group/cta relative mt-[clamp(1.5rem,3.4vw,3rem)] block rounded-2xl bg-black/60 p-1.5 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]"
+        {/* Get Started：点按切换开关 */}
+        <button
+          type="button"
+          aria-pressed={started}
+          onClick={() => setStarted((v) => !v)}
+          className="relative mt-[clamp(1.5rem,3.4vw,3rem)] block rounded-2xl bg-black/60 p-1.5 shadow-[0_0_0_1px_rgba(255,255,255,0.05)] transition-transform active:scale-[0.97]"
         >
-          <span className="flex items-center gap-10 rounded-xl bg-[#2B2B2B] py-3 pl-4 pr-3 text-[13px] text-cream/55 transition-colors group-hover/cta:text-cream">
+          <span
+            className={`flex items-center gap-10 rounded-xl bg-[#2B2B2B] py-3 pl-4 pr-3 text-[13px] transition-colors ${
+              started ? 'text-cream' : 'text-cream/55'
+            }`}
+          >
             Get Started
-            <span className="relative block h-5 w-10 rounded-full bg-black/70 transition-colors duration-300 group-hover/cta:bg-flame">
-              <span className="absolute left-0.5 top-0.5 block h-4 w-4 rounded-full bg-[#555] transition-all duration-300 group-hover/cta:left-[22px] group-hover/cta:bg-white" />
+            <span
+              className={`relative block h-5 w-10 rounded-full transition-colors duration-300 ${
+                started ? 'bg-flame' : 'bg-black/70'
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 block h-4 w-4 rounded-full transition-all duration-300 ${
+                  started ? 'left-[22px] bg-white' : 'left-0.5 bg-[#555]'
+                }`}
+              />
             </span>
           </span>
-        </a>
+        </button>
 
         <p className="relative mt-5 text-[11px] font-medium tracking-[0.22em] text-cream/45">SCROLL DOWN</p>
       </div>
