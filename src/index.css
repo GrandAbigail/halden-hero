@@ -7,25 +7,19 @@
     -webkit-font-smoothing: antialiased;
   }
   body {
-    @apply bg-mist text-ink font-body;
+    @apply bg-night font-sans text-cream;
   }
   :focus-visible {
-    @apply outline-none ring-2 ring-brass ring-offset-2 ring-offset-mist;
-  }
-}
-
-@layer utilities {
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  .backface-hidden {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    @apply outline-none ring-2 ring-flame ring-offset-2 ring-offset-coal;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float {
+  .animate-shakeL,
+  .animate-shakeR,
+  .animate-bill,
+  .animate-recoil,
+  .animate-blink {
     animation: none;
   }
 }
